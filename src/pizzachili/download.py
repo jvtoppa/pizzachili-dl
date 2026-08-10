@@ -6,7 +6,7 @@ from typing import Optional
 def download_dataset(type: bool, subtype: Optional[str] = None, size: Optional[str] = None):
     website = "https://pizzachili.dcc.uchile.cl/texts/"
     website_copy = website
-    all_subtypes = ["sources", "pitches", "proteins", "dna", "english", "xml"]
+    all_subtypes = ["sources", "pitches", "proteins", "dna", "english", "dblp.xml"]
     website_subtypes = ["code", "music", "protein", "dna", "nlang", "xml"]
     sizes = ["50MB", "100MB", "200MB"]
     extractions = []
