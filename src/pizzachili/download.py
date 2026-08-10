@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 from typing import Optional
 
-def download_dataset(type: bool, subtype: Optional[str] = None, size: Optional[str] = None):
+def download_dataset(type: bool, subtype: Optional[str] = None, size: Optional[str] = None, gunzip: bool = False):
     website = "https://pizzachili.dcc.uchile.cl/texts/"
     website_copy = website
     all_subtypes = ["sources", "pitches", "proteins", "dna", "english", "dblp.xml"]
@@ -36,7 +36,12 @@ def download_dataset(type: bool, subtype: Optional[str] = None, size: Optional[s
             command = ["curl", link, "--output", file_path]
             print("Extracting from " + link + "...")
                                 
-            result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+            if gunzip:
+                subprocess.run(["gunzip", "-f", str(file_path)], check=True)
+                file_path = Path(file_path).with_suffix("")
+
             print("Done. Size of file: " + str(Path(file_path).stat().st_size * 1e-6) + "\n---\n")
     else:
         return 0
